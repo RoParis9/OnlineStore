@@ -1,0 +1,50 @@
+package com.br.Rodrigo.OnlineStore.Controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+
+    @Autowired
+    private ProductService productService;
+
+    // Create a new product
+    @PostMapping
+    public ResponseEntity<String> createProduct(@RequestBody ProductRegistrationDTO productDTO) {
+        productService.registerProduct(productDTO);
+        return ResponseEntity.ok("Product created successfully");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
+    // Get a specific product by ID
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long productId) {
+        ProductDTO product = productService.getProductById(productId);
+        return ResponseEntity.ok(product);
+    }
+
+    // Update an existing product
+    @PutMapping("/{productId}")
+    public ResponseEntity<String> updateProduct(@PathVariable Long productId, @RequestBody ProductDTO productDTO) {
+        productService.updateProduct(productId, productDTO);
+        return ResponseEntity.ok("Product updated successfully");
+    }
+
+    // Delete a product by ID
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
+        productService.deleteProduct(productId);
+        return ResponseEntity.ok("Product deleted successfully");
+    }
+}
