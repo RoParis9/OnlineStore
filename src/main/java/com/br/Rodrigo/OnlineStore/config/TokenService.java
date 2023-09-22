@@ -13,11 +13,10 @@ import com.br.Rodrigo.OnlineStore.Domain.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-
 //Generate the JWT
 @Service
 public class TokenService {
-     
+
     @Value("${api.security.token.secret}")
     private String secret;
 
@@ -35,16 +34,16 @@ public class TokenService {
         }
     }
 
-    public String validateToken(String token){
-        try{
+    public String validateToken(String token) {
+        try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                .withIssuer("auth-api")
-                .build()
-                .verify(token)
-                .getSubject();
-                
-        }catch(JWTVerificationException exception){
+                    .withIssuer("auth-api")
+                    .build()
+                    .verify(token)
+                    .getSubject();
+
+        } catch (JWTVerificationException exception) {
             return "";
         }
     }
