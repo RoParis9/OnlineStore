@@ -1,8 +1,11 @@
 package com.br.Rodrigo.OnlineStore.Service.Interfaces;
 
-public interface IAuthenticationService{
+import com.br.Rodrigo.OnlineStore.DTOS.UserLoginDTO;
+import com.br.Rodrigo.OnlineStore.DTOS.UserRegisterDTO;
 
-    public void registerUser();
+public interface IAuthenticationService {
+    
+    void registerUser(UserRegisterDTO userDTO);
 
-    public String loginUser();
+    String loginUser(UserLoginDTO userDTO);
 }

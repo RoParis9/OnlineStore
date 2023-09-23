@@ -10,4 +10,4 @@ public class OnlineStoreApplication {
 		SpringApplication.run(OnlineStoreApplication.class, args);
 	}
 
-}
+};

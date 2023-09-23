@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 //Middleware for auth
+
 @Component
 public class SecurityFilter extends OncePerRequestFilter{
 
@@ -28,18 +29,24 @@ public class SecurityFilter extends OncePerRequestFilter{
     @Autowired
     UserRepository userRepository;
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException{
+    protected void doFilterInternal(
+                                    HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain
+                                    )throws ServletException, IOException{
+
         var token = this.recoverToken(request);
 
         if(token !=null){
-            var login = tokenService.validateToken(token);
+            var email = tokenService.validateToken(token);
 
-            UserDetails user = (UserDetails) userRepository.findByLogin(login);
+            UserDetails user = (UserDetails) userRepository.findByEmail(email);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
         filterChain.doFilter(request, response);
     }
     

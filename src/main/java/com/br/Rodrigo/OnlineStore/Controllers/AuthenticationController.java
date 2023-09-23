@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
     
     @Autowired
-    private final AuthenticationService authenticationService; 
+    private AuthenticationService authenticationService; 
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody UserRegisterDTO userDTO){
+    public ResponseEntity<?> register(@RequestBody UserRegisterDTO userDTO){
         authenticationService.registerUser(userDTO);
         return ResponseEntity.ok("User registered successfully");
     }
@@ -27,7 +27,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserLoginDTO userDTO){
         String token = authenticationService.loginUser(userDTO);
-        return ResponseEntity.ok("User authenticated").body(token);
+        return ResponseEntity.ok(token);
     }
 	
 }
