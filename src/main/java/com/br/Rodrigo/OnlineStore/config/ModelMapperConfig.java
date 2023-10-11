@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ModelMapperConfig {
+
     @Bean
     public ModelMapper modalMapper(){
         return new ModelMapper();

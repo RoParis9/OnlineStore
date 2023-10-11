@@ -3,7 +3,6 @@ package com.br.Rodrigo.OnlineStore.config;
 import java.io.IOException;
 
 import com.br.Rodrigo.OnlineStore.Repositories.UserRepository;
-import com.br.Rodrigo.OnlineStore.config.TokenService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,9 +37,9 @@ public class SecurityFilter extends OncePerRequestFilter{
         var token = this.recoverToken(request);
 
         if(token !=null){
-            var email = tokenService.validateToken(token);
+            var login = tokenService.validateToken(token);
 
-            UserDetails user = (UserDetails) userRepository.findByEmail(email);
+            UserDetails user = (UserDetails) userRepository.findByLogin(login);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 

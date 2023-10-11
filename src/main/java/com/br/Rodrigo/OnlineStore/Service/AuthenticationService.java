@@ -1,6 +1,5 @@
 package com.br.Rodrigo.OnlineStore.Service;
 
-
 import com.br.Rodrigo.OnlineStore.DTOS.UserLoginDTO;
 import com.br.Rodrigo.OnlineStore.DTOS.UserRegisterDTO;
 import com.br.Rodrigo.OnlineStore.Domain.User;
@@ -16,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticationService implements IAuthenticationService{
+public class AuthenticationService implements IAuthenticationService {
 
     @Autowired
     private ModelMapper mapper;
@@ -38,15 +37,17 @@ public class AuthenticationService implements IAuthenticationService{
         if (this.userRepository.findByEmail(userDTO.email()) != null) {
             throw new RuntimeException("This user already exists");
         }
-
-        String encryptedPassword = passwordEncoder.encode(userDTO.password());
-        User newUser = mapper.map(userDTO, User.class);
-        newUser.setPassword(encryptedPassword);
-        userRepository.save(newUser);
+        try {
+            String encryptedPassword = passwordEncoder.encode(userDTO.password());
+            User newUser = mapper.map(userDTO, User.class);
+            newUser.setPassword(encryptedPassword);
+            userRepository.save(newUser);
+        } catch (Exception e) {
+            throw new RuntimeException("can`t change the password");
+        }
     }
 
     public String loginUser(UserLoginDTO userDTO) {
-
 
         if (userDTO.email().isEmpty()) {
             throw new RuntimeException("Name cannot be empty");

@@ -24,7 +24,6 @@ The E-Commerce Application is built using Spring Boot and is designed to be an e
 
 - [ ] Cart and Order Functionality: Implement shopping cart and order management
 - [ ] Product and Category CRUD: Implement CRUD operations for products and categories
-- [ ] Frontend Development: Develop a user interface for the application
 - [ ] Unit Testing: Initial unit tests for some components
 - [ ] Integration Testing: Write integration tests to ensure system-wide functionality
 
